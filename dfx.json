@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "snake_backend": {
+      "main": "src/snake_backend/main.mo",
+      "type": "motoko"
+    },
+    "snake_frontend": {
+      "dependencies": [
+        "snake_backend"
+      ],
+      "source": [
+        "src/snake_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "snake_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
