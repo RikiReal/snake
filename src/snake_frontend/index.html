@@ -1,26 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snakes on a blockchain!</title>
-  <style>
-    canvas {
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snakes on a blockchain!</title>
+    <style>
+      canvas {
         border: 1px solid #000;
         display: block;
         margin: 0 auto;
         background-color: #f0f0f0;
-    }
-</style>
-</head>
+      }
 
-<body>
-  <div id="root">
-    <canvas id="game" width="400" height="400">Canvas API not supported</canvas>
-  </div>
-  <script type="module" src="/src/main.js"></script>
-</body>
+      .container-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        gap: 20px;
+      }
 
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .max-w {
+        max-width: max-content;
+      }
+
+      #game-over-message {
+        align-self: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root">
+      <div class="container">
+        <div class="container-column">
+          <div class="max-w">
+            <h1>SNAKE</h1>
+            <h2>Score: <span id="score-display">0</span></h2>
+            <button id="start-game-button">Play!</button>
+          </div>
+          <h1 id="game-over-message" hidden>GAME OVER!</h1>
+          <canvas id="game" width="400" height="400"
+            >Canvas API not supported</canvas
+          >
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>

@@ -1,4 +1,4 @@
-function startGame() {
+function main() {
   const canvas = document.getElementById("game");
   if (!canvas.getContext) {
     return;
@@ -13,7 +13,8 @@ function startGame() {
   let dx = 20;
   let dy = 0;
   let score = 0;
-
+  const scoreDisplay = document.getElementById("score-display");
+  
   const drawSnakePart = (part) => {
     ctx.fillStyle = "#D9ED92";
     ctx.strokeStyle = "#168AAD";
@@ -34,14 +35,18 @@ function startGame() {
     const head = { x: snake[0].x + dx, y: snake[0].y + dy };
     if (head.x === food.x && head.y === food.y) {
       score += 10;
+      updateScore();
       food = createApple();
-      SNAKE_SPEED *= 0.9
-      console.log(SNAKE_SPEED);
+      SNAKE_SPEED *= 0.9;
     } else {
       snake.pop();
     }
     snake.unshift(head);
   };
+
+  const updateScore = () => {
+    scoreDisplay.innerText = score;
+  }
 
   const createApple = () => {
     // As long as the apple position is generated on a snake part, keep generating a new position
@@ -111,14 +116,16 @@ function startGame() {
     }
   }
 
+  const gameOverMessage = document.getElementById("game-over-message");
   let SNAKE_SPEED = 750;
   let lastRenderTime;
   let gameOver = false;
   const gameLoop = (timeStamp) => {
     if (gameOver) {
-      if (confirm("You lost. Press ok to restart.")) {
-        window.location.reload(); // Reload the page to restart the game
-      }
+      gameOverMessage.toggleAttribute("hidden");
+      // if (confirm("GAME OVER Press ok to restart.")) {
+      //   window.location.reload(); // Reload the page to restart the game
+      // }
       return; // Exit the game loop if game over
     }
 
@@ -126,7 +133,7 @@ function startGame() {
       lastRenderTime = timeStamp;
     }
     requestAnimationFrame(gameLoop);
-    const milsSinceLastRender = Math.floor((timeStamp - lastRenderTime));
+    const milsSinceLastRender = Math.floor(timeStamp - lastRenderTime);
     if (milsSinceLastRender < SNAKE_SPEED) {
       return;
     }
@@ -137,7 +144,12 @@ function startGame() {
     moveSnake();
     checkGameOver();
   };
-  setupControls();
-  gameLoop();
+
+  const startButton = document.getElementById("start-game-button");
+  startButton.addEventListener("click", (e) => {
+    setupControls();
+    gameLoop();
+  });
 }
-window.addEventListener("load", startGame);
+
+window.addEventListener("load", main);
